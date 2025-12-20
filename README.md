@@ -1,5 +1,7 @@
 # Panic Button - Educational Ransomware System
 
+![panic](https://github.com/AreiaNight/panicButton-A-go-project/blob/main/panic.png)
+
 ## About
 
 This is an educational project, I created this because as a kid I wanted a bait for possible thiefs (in my country is usual) and make my computer unreachable. So this is a kind of ransomware based on that idea because this isn't for malicious purposes but a way for me to learn Go and make that idea I had as a little girl true.
