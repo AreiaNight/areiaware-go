@@ -86,7 +86,7 @@ panic-button.exe gp
 Potential future features:
 
 - [ ] Discord allert using webhook
-- [ ] GUI interface
-- [ ] Scheduled auto-lock functionality
+- [x] GUI interface
+- [x] Auto-lock functionality
 - [ ] Email alert integration
 - [ ] Screenshot capture on activation
