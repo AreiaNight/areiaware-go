@@ -120,3 +120,4 @@ Potential future features:
 - [x] Auto-lock functionality
 - [ ] Email alert integration
 - [ ] Screenshot capture on activation
+- [ ] OS verification, so it can runs on mac, linux or windows
