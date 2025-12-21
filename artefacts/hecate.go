@@ -1,15 +1,15 @@
-package modules
+package atenea
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	cryptoRand "crypto/rand"
-	"fmt"
-	"io"
+    "crypto/aes"
+    "crypto/cipher"
+    cryptoRand "crypto/rand"
+    "fmt"
+    "io"
 )
 
-// Encrypt cifra data con key (AES-GCM)
-func Encrypt(data []byte, key []byte) ([]byte, error) {
+// Encrypt cifra data con key (AES-GCM) - ← Mayúscula (aunque no se usa fuera del paquete)
+func encrypt(data []byte, key []byte) ([]byte, error) {  // ← minúscula (función interna)
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -30,7 +30,7 @@ func Encrypt(data []byte, key []byte) ([]byte, error) {
 }
 
 // Decrypt descifra data con key (AES-GCM)
-func Decrypt(data []byte, key []byte) ([]byte, error) {
+func decrypt(data []byte, key []byte) ([]byte, error) {  // ← minúscula (función interna)
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
@@ -54,11 +54,4 @@ func Decrypt(data []byte, key []byte) ([]byte, error) {
 	}
 
 	return plaintext, nil
-}
-
-// GenerateRandomName genera un nombre aleatorio para archivos
-func GenerateRandomName() string {
-	b := make([]byte, 16)
-	cryptoRand.Read(b)
-	return fmt.Sprintf("%x.dat", b)
 }

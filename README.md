@@ -8,6 +8,34 @@ This is an educational project, I created this because as a kid I wanted a bait 
 
 **DISCLAIMER:** This project is purely educational and should only be used in controlled environments for learning purposes. Do not use this software on systems you don't own or without explicit permission.
 
+## Version 2.0
+
+This new version introduces significant enhancements in structure, security, and user experience:
+
+1. Clean and Modular Architecture
+
+    Organized Codebase: The project now follows best practices for Go development. Core functions for encryption, file traversal, and utilities have been moved to the artefacts/ folder.
+
+    Logical Modules: Responsibilities are clearly separated into distinct packages (e.g., atenea, cerberos, hecate), making the code easier to read, maintain, and expand.
+
+2. Recovery Password Feature
+
+    Dual Security Access: The underlying encryption still relies on the fixed Master Password. However, the decryption process now accepts either the hardcoded Master Password or the new temporary Recovery Password.
+
+    Automatic Generation: Upon initial execution (go run .), a unique, temporary Recovery Password is automatically generated and displayed to the user.
+
+    Single-Use Safety: Once the Recovery Password is used to unlock the files, it is designed to be discarded.
+
+3. Simplified Execution
+
+    Automatic Encryption: Running the program without any command-line arguments (using go run .) will now automatically initiate the file encryption process.
+
+    This flow includes generating and displaying the Recovery Password before locking the files.
+
+4. New Visual Warning
+
+    Native Pop-up Window: A new native operating system pop-up window is displayed to warn the user (or intruder) immediately before the encryption process begins.
+
 ## Features
 
 - AES-256-GCM encryption for secure file encryption
