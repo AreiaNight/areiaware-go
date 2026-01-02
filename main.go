@@ -4,9 +4,9 @@ import (
     "crypto/sha256"
     "fmt"
     "os"
-    "unsafe"
+    "unsafe" // Está también hay que removerla si se quiere usar en unix
 
-    "golang.org/x/sys/windows"
+    "golang.org/x/sys/windows" // Si se quiere usar en sistmas unix como linux o mac, solo hay que remover esta lína de código 
 	atena "main/artefacts" // Se pone de alias para que jale los módulos
 )
 
@@ -103,6 +103,8 @@ func about() {
     fmt.Println("\nThis is an educational project. I created this because as a kid I wanted a bait for possible thiefs or curious persons who wanted to mess with my pc\n and make my computer unreachable. So this is a kind of ransomware based on that idea \nbecause this isn't for malicious propouses but a way for me to learn go and make that idea I had as a little girl true\n") 
 }
 
+
+// Los show warnings solo funcionan con Windows
 func showWarning() {
 	user32 := windows.NewLazySystemDLL("user32.dll")
 	messageBox := user32.NewProc("MessageBoxW")
