@@ -1,0 +1,23 @@
+config.json
+
+# Archivos sensibles
+config.json
+
+# Archivos de Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Archivos de prueba
+*.test
+*.out
+
+# Carpetas
+archivos_privados/
+.hidden_data/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db

@@ -8,56 +8,70 @@ This is an educational project, I created this because as a kid I wanted a bait 
 
 **DISCLAIMER:** This project is purely educational and should only be used in controlled environments for learning purposes. Do not use this software on systems you don't own or without explicit permission.
 
-## Version 2.0
+## Version 2.5
 
-This new version introduces significant enhancements in structure, security, and user experience:
+This version continues evolving the project by improving **alerting, configurability, and command management**, while keeping the educational focus.
 
-1. Clean and Modular Architecture
+### 1. Hermes Module (Discord Bot Integration)
 
-    Organized Codebase: The project now follows best practices for Go development. Core functions for encryption, file traversal, and utilities have been moved to the artefacts/ folder.
+- **Dedicated Alert Module:**  
+  A new module named `hermes` has been introduced, responsible for handling all alerting and external communications.
 
-    Logical Modules: Responsibilities are clearly separated into distinct packages (e.g., atenea, cerberos, hecate), making the code easier to read, maintain, and expand.
+- **Custom Discord Bot Support:**  
+  Instead of relying solely on basic webhooks, the system can now connect to a **custom Discord bot**, allowing richer and more controlled alert messages.
 
-2. Recovery Password Feature
+- **Real-Time Notifications:**  
+  Alerts are sent automatically when critical actions occur (e.g., encryption start, unlock attempts).
 
-    Dual Security Access: The underlying encryption still relies on the fixed Master Password. However, the decryption process now accepts either the hardcoded Master Password or the new temporary Recovery Password.
+### 2. Configuration System
 
-    Automatic Generation: Upon initial execution (go run .), a unique, temporary Recovery Password is automatically generated and displayed to the user.
+- **JSON Credentials File:**  
+  Sensitive data such as Discord bot tokens, channel IDs, and webhook-related information are now stored in a configurable JSON file.
 
-    Single-Use Safety: Once the Recovery Password is used to unlock the files, it is designed to be discarded.
+- **YAML Command Configuration:**  
+  A YAML file is used to define and manage commands, making the system easier to extend and customize without modifying the source code.
 
-3. Simplified Execution
+- **Separation of Logic and Configuration:**  
+  This change improves maintainability and allows safer experimentation when adding new features.
 
-    Automatic Encryption: Running the program without any command-line arguments (using go run .) will now automatically initiate the file encryption process.
+  ### 3. Cross-Platform Support
 
-    This flow includes generating and displaying the Recovery Password before locking the files.
+- **Multi-OS Compatibility:**  
+  Starting with version 2.5, the core functionality is now compatible with:
+  - Linux
+  - Windows
+  - macOS
 
-4. New Visual Warning
+---
 
-    Native Pop-up Window: A new native operating system pop-up window is displayed to warn the user (or intruder) immediately before the encryption process begins.
 
 ## Features
 
-- AES-256-GCM encryption for secure file encryption
-- Automatic file hiding with random names
-- Recovery password system based on Castlevania characters
+- AES-256-GCM encryption for secure file locking
+- Automatic file hiding with random filenames
+- Recovery password system inspired by Castlevania characters
 - Encrypted mapping system to track original file names
-- Discord webhook integration for security alerts
-- Windows MessageBox notifications
-- Complete file restoration capabilities
+- Discord alert system (webhook and bot-based)
+- Native Windows MessageBox notifications
+- Full file restoration capabilities
+- Modular alerting via the Hermes module
+- Configurable credentials (JSON) and commands (YAML)
 
 
 ## Technical Stack
 
 - **Language:** Go 1.21+
-- **Encryption:** AES-256-GCM (Advanced Encryption Standard)
+- **Encryption:** AES-256-GCM
 - **Key Derivation:** SHA-256
+- **Configuration:** JSON / YAML
 - **Platform:** Windows (with potential cross-platform support)
+- **Alerting:** Discord Bot & Webhookst)
 
 ## Prerequisites
 
 - Go 1.21 or higher
 - Windows OS (for MessageBox features)
+- Discord Bot Token (for Hermes module)
 
 ## Installation
 
@@ -115,8 +129,70 @@ panic-button.exe gp
 
 Potential future features:
 
-- [ ] Discord allert using webhook
+- [x] Discord allert
+- [ ] Extended Discord notifications:
+    - [ ] User who executed the binary
+    - [ ] Execution date and time
+    - [ ] Hostname and OS information
+    - [ ] Basic hardware and system metadata
 - [x] GUI interface
 - [x] Auto-lock functionality
 - [ ] Email alert integration
 - [ ] Screenshot capture on activation
+- [ ] Cross-platform support refinements
+
+## Security & Ethics
+
+This project is designed with a strong emphasis on **ethical use, transparency, and controlled experimentation**.
+
+### Educational Purpose Only
+
+- This software was created exclusively for **learning and research purposes**, particularly to understand:
+  - File encryption mechanisms
+  - Ransomware behavioral patterns
+  - Defensive alerting and monitoring techniques
+  - Secure coding practices in Go
+
+- It is **not intended for real-world deployment** against unsuspecting users or systems.
+
+### Ownership and Consent
+
+- The software must only be executed on:
+  - Systems you personally own, or
+  - Systems where you have **explicit and informed permission** from the owner.
+
+- Running this project on third-party systems without consent may be illegal and unethical.
+
+### No Financial Extortion
+
+- This project does **not** implement:
+  - Payment mechanisms
+  - Cryptocurrency wallets
+  - Extortion logic or demands
+
+- Any resemblance to ransomware behavior exists solely to study its technical structure, not to replicate criminal activity.
+
+### Controlled Design Decisions
+
+- Encryption is reversible by design through:
+  - A hardcoded Master Password
+  - A temporary Recovery Password generated at runtime
+
+- These safeguards exist to prevent irreversible data loss during testing and learning.
+
+### Responsible Disclosure and Usage
+
+- Users are encouraged to:
+  - Study the code to better understand offensive techniques from a defensive standpoint
+  - Use the knowledge gained to improve detection, response, and prevention strategies
+
+- Any modifications that remove safeguards or add malicious intent are **explicitly discouraged**.
+
+### Legal Notice
+
+- The author assumes no responsibility for misuse of this software.
+- The user is fully responsible for ensuring compliance with local laws and regulations.
+
+---
+
+By using or modifying this project, you acknowledge that you understand the ethical implications of ransomware-like software and agree to use it responsibly.

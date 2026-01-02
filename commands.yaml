@@ -1,0 +1,42 @@
+# ============================================================================
+# DISCORD COMMANDS CONFIGURATION
+# ============================================================================
+
+commands:
+  - name: status # Comando para mostrar el status del sistema     
+    description: "Show system status" # description: Texto que explica qué hace el comando
+    aliases: ["s", "status"] # aliases: Nombres alternativos/atajos para el mismo comando, "!s" hará lo mismo que "!status"
+    enabled: true # Activa o desactiva el comando
+
+
+  - name: info # Comando para mostrar información del último cifrado
+    description: "Last encryption information"
+    aliases: ["i", "information"]
+    enabled: true
+  
+  - name: lock # OPCIONAL, este activa remotamente el cifrado
+    description: "Encryot files remotely"
+    aliases: ["e", "encrypt"]
+    enabled: false  # Solo ACTIVAR si estás seguro
+  
+    requires_confirmation: true
+    # requires_confirmation: Pide confirmación antes de ejecutar
+    
+  - name: unlock # OPCIONAL, este activa remotamente el descifrado
+    description: "Uncrypt files remotely"
+    aliases: ["d", "uncrypt"]
+    enabled: false  # ← También deshabilitado
+    
+    requires_password: true # requires_password: Pide la contraseña maestra antes de ejecutar
+
+# ============================================================================
+# CONFIGURACIÓN DE NOTIFICACIONES
+# ============================================================================
+
+notifications:
+  on_startup: true
+  on_encryption: true
+  on_decryption: true
+  on_error: true
+  include_system_info: true
+  

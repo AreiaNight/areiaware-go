@@ -1,0 +1,11 @@
+{
+    "discord": {
+        "bot_token": "YOUR_BOT_TOKEN_HERE",
+        "channel_id": "YOUR_CHANNEL_ID_HERE",
+        "enabled": true
+    },
+    "app": {
+        "master_password": "YOUR_MASTER_PASSWORD_HERE",
+        "target_directory": "./archivos_privados"
+    }
+}

